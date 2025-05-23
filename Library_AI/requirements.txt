@@ -1,0 +1,39 @@
+# Core Django and REST Framework
+Django>=4.2
+djangorestframework>=3.14
+django-filter>=23.3
+djangorestframework-simplejwt
+
+
+# PostgreSQL
+psycopg2-binary>=2.9.9
+
+# Redis caching
+django-redis>=5.4.0
+
+# Environment variable support
+python-dotenv>=1.0.1
+
+# For ClovaX and Stability AI HTTP requests
+requests>=2.31
+googletrans==4.0.0-rc1
+
+# HTML scraping (Yes24)
+beautifulsoup4>=4.12.3
+selenium>=4.19
+
+# Image generation caching
+Pillow>=10.3.0
+
+# FastAPI (if used outside Django for testing models or future frontend interaction)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+
+# Gunicorn for Docker production
+gunicorn>=21.2
+
+# For testing and mocking
+coverage>=7.4
+pytest>=8.1
+pytest-django>=4.8
+
