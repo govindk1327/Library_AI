@@ -4,21 +4,22 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import BooksPage from './pages/BooksPage';
 import PreferencesPage from './pages/PreferencesPage';
-import LogsPages from './pages/LogsPages';
+import HistoryPages from './pages/HistoryPages';
 import Navbar from './components/Navbar';
 
 export default function App() {
   return (
     <Router>
-      <Navbar />
-      <div className="p-4">
+      <div className="min-h-screen w-full bg-[#0d0d0d] text-white font-sans">
+        <Navbar />
         <Routes>
           <Route path="/" element={<RecommendPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/books" element={<BooksPage />} />
           <Route path="/preferences" element={<PreferencesPage />} />
-          <Route path="/logs" element={<LogsPages />} />
+          <Route path="/history" element={<HistoryPages />} />
+
         </Routes>
       </div>
     </Router>

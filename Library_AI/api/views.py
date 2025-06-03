@@ -44,21 +44,29 @@ def book_list(request):
 
 
 
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def prompt_logs(request):
+#     logs = PromptLog.objects.filter(user=request.user).order_by("-created_at")[:50]
+#     data = [
+#         {
+#             "id": log.id,
+#             "user_query": log.user_query,
+#             "response_text": log.response_text,
+#             "book_isbns": log.book_isbns,
+#             "created_at": log.created_at,
+#         }
+#         for log in logs
+#     ]
+#     return Response(data)
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def prompt_logs(request):
     logs = PromptLog.objects.filter(user=request.user).order_by("-created_at")[:50]
-    data = [
-        {
-            "id": log.id,
-            "user_query": log.user_query,
-            "response_text": log.response_text,
-            "book_isbns": log.book_isbns,
-            "created_at": log.created_at,
-        }
-        for log in logs
-    ]
-    return Response(data)
+    serializer = PromptLogSerializer(logs, many=True)
+    return Response(serializer.data)
+
 
 
 
@@ -134,4 +142,21 @@ def user_preferences(request):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+# @api_view(["GET"])
+# @permission_classes([IsAuthenticated])
+# def user_profile(request):
+#     user = request.user
+#     prefs = getattr(user, "preferences", None)
+
+#     return Response({
+#         "id": user.id,
+#         "username": user.username,
+#         "email": user.email,
+#         "preferences": {
+#             "favoriteGenres": prefs.preferred_genres if prefs else [],
+#             "language": prefs.language if prefs else "en",
+#             "preferAICovers": prefs.prefers_ai_images if prefs else False
+#         }
+#     })
     

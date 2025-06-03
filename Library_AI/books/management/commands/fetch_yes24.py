@@ -8,6 +8,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 from datetime import datetime
+from books.cover_fetcher import fetch_cover_image
+
 
 class Command(BaseCommand):
     help = "Fetch Yes24 bestseller books and insert into the database"
@@ -15,14 +17,25 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         books = self.fetch_yes24_bestsellers()
         for entry in books:
+            isbn13 = entry.get("isbn13", "").strip()
+            cover_url = entry.get("image_url") or fetch_cover_image(isbn13)
+            # print(f"✔️ {entry['title']} → {cover_url}")
+
             book_obj, created = Book.objects.get_or_create(
                 title=entry["title"],
                 author=entry["author"],
                 defaults={
                     "publisher": entry["publisher"],
-                    "pub_date": self.parse_date(entry["pub_date"])
+                    "pub_date": self.parse_date(entry["pub_date"]),
+                    "cover_image_url": cover_url
                 }
             )
+
+            if not book_obj.cover_image_url and cover_url:
+                book_obj.cover_image_url = cover_url
+                book_obj.save()
+
+            
 
             BookSource.objects.update_or_create(
                 book=book_obj,

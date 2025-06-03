@@ -51,7 +51,7 @@ export default function BooksPage() {
                         {books.map((book) => (
                             <li
                                 key={book.id}
-                                className="bg-white shadow rounded p-4 border border-gray-100"
+                                className="bg-[#1e1e1e] text-gray-100 rounded-lg shadow-md p-4 mb-4"
                             >
                                 <h3 className="text-lg font-semibold">{book.title}</h3>
                                 <p className="text-sm text-gray-700">

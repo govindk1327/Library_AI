@@ -39,4 +39,5 @@ class UserSignupSerializer(serializers.ModelSerializer):
 class UserPreferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserPreference
-        fields = ['preferred_genres', 'preferred_language', 'prefers_ai_images']
+        # fields = ['preferred_genres', 'preferred_language', 'prefers_ai_images']
+        fields = ['preferred_genres', 'prefers_ai_images']
